@@ -11,11 +11,11 @@
 		41E2DB2A1B0641C80023FD9E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41E2DB291B0641C80023FD9E /* Images.xcassets */; };
 		41E2DB2D1B0641C80023FD9E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41E2DB2B1B0641C80023FD9E /* LaunchScreen.xib */; };
 		41E2DB391B0641C80023FD9E /* CodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E2DB381B0641C80023FD9E /* CodeTests.swift */; };
-		41E2DB451B0641D80023FD9E /* KYDrawerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E2DB421B0641D80023FD9E /* KYDrawerController.swift */; };
-		41E2DB461B0641D80023FD9E /* KYEmbedDrawerControllerSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E2DB431B0641D80023FD9E /* KYEmbedDrawerControllerSegue.swift */; };
-		41E2DB471B0641D80023FD9E /* KYEmbedMainControllerSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E2DB441B0641D80023FD9E /* KYEmbedMainControllerSegue.swift */; };
 		41E2DB4A1B06B45D0023FD9E /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E2DB491B06B45D0023FD9E /* MainViewController.swift */; };
 		41E2DB4C1B06B92E0023FD9E /* DrawerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E2DB4B1B06B92E0023FD9E /* DrawerViewController.swift */; };
+		41E2DB571B06C61A0023FD9E /* KYDrawerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E2DB541B06C61A0023FD9E /* KYDrawerController.swift */; };
+		41E2DB581B06C61A0023FD9E /* KYEmbedDrawerControllerSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E2DB551B06C61A0023FD9E /* KYEmbedDrawerControllerSegue.swift */; };
+		41E2DB591B06C61A0023FD9E /* KYEmbedMainControllerSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E2DB561B06C61A0023FD9E /* KYEmbedMainControllerSegue.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,11 +37,11 @@
 		41E2DB321B0641C80023FD9E /* CodeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CodeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		41E2DB371B0641C80023FD9E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		41E2DB381B0641C80023FD9E /* CodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeTests.swift; sourceTree = "<group>"; };
-		41E2DB421B0641D80023FD9E /* KYDrawerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KYDrawerController.swift; path = ../../../Source/KYDrawerController.swift; sourceTree = "<group>"; };
-		41E2DB431B0641D80023FD9E /* KYEmbedDrawerControllerSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KYEmbedDrawerControllerSegue.swift; path = ../../../Source/KYEmbedDrawerControllerSegue.swift; sourceTree = "<group>"; };
-		41E2DB441B0641D80023FD9E /* KYEmbedMainControllerSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KYEmbedMainControllerSegue.swift; path = ../../../Source/KYEmbedMainControllerSegue.swift; sourceTree = "<group>"; };
 		41E2DB491B06B45D0023FD9E /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		41E2DB4B1B06B92E0023FD9E /* DrawerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawerViewController.swift; sourceTree = "<group>"; };
+		41E2DB541B06C61A0023FD9E /* KYDrawerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KYDrawerController.swift; path = ../../../Classes/KYDrawerController.swift; sourceTree = "<group>"; };
+		41E2DB551B06C61A0023FD9E /* KYEmbedDrawerControllerSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KYEmbedDrawerControllerSegue.swift; path = ../../../Classes/KYEmbedDrawerControllerSegue.swift; sourceTree = "<group>"; };
+		41E2DB561B06C61A0023FD9E /* KYEmbedMainControllerSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KYEmbedMainControllerSegue.swift; path = ../../../Classes/KYEmbedMainControllerSegue.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,9 +122,9 @@
 		41E2DB481B06B41E0023FD9E /* KYDrawerController */ = {
 			isa = PBXGroup;
 			children = (
-				41E2DB421B0641D80023FD9E /* KYDrawerController.swift */,
-				41E2DB431B0641D80023FD9E /* KYEmbedDrawerControllerSegue.swift */,
-				41E2DB441B0641D80023FD9E /* KYEmbedMainControllerSegue.swift */,
+				41E2DB541B06C61A0023FD9E /* KYDrawerController.swift */,
+				41E2DB551B06C61A0023FD9E /* KYEmbedDrawerControllerSegue.swift */,
+				41E2DB561B06C61A0023FD9E /* KYEmbedMainControllerSegue.swift */,
 			);
 			name = KYDrawerController;
 			sourceTree = "<group>";
@@ -228,9 +228,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				41E2DB461B0641D80023FD9E /* KYEmbedDrawerControllerSegue.swift in Sources */,
-				41E2DB451B0641D80023FD9E /* KYDrawerController.swift in Sources */,
-				41E2DB471B0641D80023FD9E /* KYEmbedMainControllerSegue.swift in Sources */,
+				41E2DB581B06C61A0023FD9E /* KYEmbedDrawerControllerSegue.swift in Sources */,
+				41E2DB571B06C61A0023FD9E /* KYDrawerController.swift in Sources */,
+				41E2DB591B06C61A0023FD9E /* KYEmbedMainControllerSegue.swift in Sources */,
 				41E2DB231B0641C80023FD9E /* AppDelegate.swift in Sources */,
 				41E2DB4A1B06B45D0023FD9E /* MainViewController.swift in Sources */,
 				41E2DB4C1B06B92E0023FD9E /* DrawerViewController.swift in Sources */,
@@ -421,6 +421,7 @@
 				41E2DB3E1B0641C80023FD9E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		41E2DB3F1B0641C80023FD9E /* Build configuration list for PBXNativeTarget "CodeTests" */ = {
 			isa = XCConfigurationList;
@@ -429,6 +430,7 @@
 				41E2DB411B0641C80023FD9E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
