@@ -56,14 +56,9 @@ public class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
             target: self,
             action: "didtapContainerView:"
         )
-        let panGesture = UIPanGestureRecognizer(
-            target: self,
-            action: "handlePanGesture:"
-        )
         view.setTranslatesAutoresizingMaskIntoConstraints(false)
         view.backgroundColor = UIColor(white: 0.0, alpha: 0)
         view.addGestureRecognizer(tapGesture)
-        view.addGestureRecognizer(panGesture)
         tapGesture.delegate = self
         return view
     }()

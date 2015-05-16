@@ -38,6 +38,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         )
         drawerController.drawerViewController = drawerViewController
         
+        /* Customize
+        drawerController.drawerDirection = .Right
+        drawerController.drawerWidth     = 300
+        */
+        
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         window?.rootViewController = drawerController
         window?.makeKeyAndVisible()
