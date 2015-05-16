@@ -1,8 +1,8 @@
 Pod::Spec.new do |s|
   s.name         = "KYDrawerController"
-  s.version      = "0.0.1"
+  s.version      = "1.0.0"
   s.summary      = "KYDrawerController is a side drawer navigation container view controller."
-  s.homepage     = "https://github.com/ykyohei"
+  s.homepage     = "https://github.com/ykyohei/KYDrawerController"
   s.license      = "MIT"
   s.author       = { "Kyohei Yamaguchi" => "kyouhei.lab@gmail.com" }
   s.social_media_url   = "https://twitter.com/kyo__hei"
