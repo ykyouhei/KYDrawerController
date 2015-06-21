@@ -50,6 +50,8 @@ public class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
     
     private var _panStartLocation = CGPointZero
     
+    private var _panDelta: CGFloat = 0
+    
     lazy private var _containerView: UIView = {
         let view = UIView(frame: self.view.frame)
         let tapGesture = UITapGestureRecognizer(
@@ -74,6 +76,16 @@ public class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
         case .Right:
             gesture.edges = .Right
         }
+        gesture.delegate = self
+        return gesture
+    }()
+    
+    lazy private(set) var panGesture: UIPanGestureRecognizer = {
+        let gesture = UIPanGestureRecognizer(
+            target: self,
+            action: "handlePanGesture:"
+        )
+        gesture.delegate = self
         return gesture
     }()
     
@@ -186,6 +198,17 @@ public class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
     
     
     /**************************************************************************/
+    // MARK: - initialize
+    /**************************************************************************/
+    
+    public convenience init(drawerDirection: DrawerDirection, drawerWidth: CGFloat) {
+        self.init()
+        self.drawerDirection = drawerDirection
+        self.drawerWidth     = drawerWidth
+    }
+    
+    
+    /**************************************************************************/
     // MARK: - Life Cycle
     /**************************************************************************/
     
@@ -195,6 +218,7 @@ public class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
         let viewDictionary = ["_containerView": _containerView]
         
         view.addGestureRecognizer(screenEdgePanGesture)
+        view.addGestureRecognizer(panGesture)
         view.addSubview(_containerView)
         view.addConstraints(
             NSLayoutConstraint.constraintsWithVisualFormat(
@@ -266,53 +290,47 @@ public class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
     
     final func handlePanGesture(sender: UIGestureRecognizer) {
         _containerView.hidden = false
-        
-        let location                 = sender.locationInView(view)
-        var backGroundAlpha: CGFloat = 0
-        var drawerState: DrawerState = .Closed
-        var constant: CGFloat        = -drawerWidth
-        
         if sender.state == .Began {
-            _panStartLocation = location
+            _panStartLocation = sender.locationInView(view)
         }
         
-        let panDistance = CGFloat(location.x - _panStartLocation.x)
+        let delta           = CGFloat(sender.locationInView(view).x - _panStartLocation.x)
+        let constant        : CGFloat
+        let backGroundAlpha : CGFloat
+        let drawerState     : DrawerState
         
-        switch abs(panDistance) {
-        case let x where x < 0:
-            break
-        case let x where x <= 30:
-            backGroundAlpha = min(_kContainerViewMaxAlpha, _kContainerViewMaxAlpha*(abs(panDistance)/drawerWidth))
-            constant        = panDistance
-        case let x where x <= drawerWidth:
-            drawerState    = .Opened
-            backGroundAlpha = min(_kContainerViewMaxAlpha, _kContainerViewMaxAlpha*(abs(panDistance)/drawerWidth))
-            constant        = panDistance
-        default:
-            switch self.drawerDirection {
-            case .Left:
-                constant = drawerWidth
-            case .Right:
-                constant = -drawerWidth
-            }
-            drawerState    = .Opened
-            backGroundAlpha = _kContainerViewMaxAlpha
-            break
+        switch drawerDirection {
+        case .Left:
+            drawerState     = _panDelta < 0 ? .Closed : .Opened
+            constant        = min(_drawerConstraint.constant + delta, drawerWidth)
+            backGroundAlpha = min(
+                _kContainerViewMaxAlpha,
+                _kContainerViewMaxAlpha*(abs(constant)/drawerWidth)
+            )
+        case .Right:
+            drawerState     = _panDelta > 0 ? .Closed : .Opened
+            constant        = max(_drawerConstraint.constant + delta, -drawerWidth)
+            backGroundAlpha = min(
+                _kContainerViewMaxAlpha,
+                _kContainerViewMaxAlpha*(abs(constant)/drawerWidth)
+            )
         }
         
+        _drawerConstraint.constant = constant
         _containerView.backgroundColor = UIColor(
             white: 0,
             alpha: backGroundAlpha
         )
-        _drawerConstraint.constant = constant
         
         switch sender.state {
+        case .Changed:
+            _panStartLocation = sender.locationInView(view)
+            _panDelta         = delta
         case .Ended, .Cancelled:
             setDrawerState(drawerState, animated: true)
         default:
             break
         }
-        
     }
     
     final func didtapContainerView(gesture: UITapGestureRecognizer) {
@@ -325,7 +343,14 @@ public class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
     /**************************************************************************/
     
     public func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
-        return touch.view == gestureRecognizer.view
+        switch gestureRecognizer {
+        case panGesture:
+            return drawerState == .Opened
+        case screenEdgePanGesture:
+            return drawerState == .Closed
+        default:
+            return touch.view == gestureRecognizer.view
+        }
     }
 
 
