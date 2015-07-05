@@ -90,6 +90,12 @@ func setDrawerState(state: DrawerState, animated: Bool)
 ```
 
 
+### Delegate
+```Swift
+optional func drawerController(drawerController: KYDrawerController, stateChanged state: KYDrawerController.DrawerState)
+```
+
+
 ## License
 
 This code is distributed under the terms and conditions of the [MIT license](LICENSE). 
