@@ -22,17 +22,21 @@ SOFTWARE.
 
 import UIKit
 
+@objc public protocol KYDrawerControllerDelegate {
+    optional func drawerController(drawerController: KYDrawerController, stateChanged state: KYDrawerController.DrawerState)
+}
+
 public class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
     
     /**************************************************************************/
     // MARK: - Types
     /**************************************************************************/
     
-    public enum DrawerDirection {
+    @objc public enum DrawerDirection: Int {
         case Left, Right
     }
     
-    public enum DrawerState {
+    @objc public enum DrawerState: Int {
         case Opened, Closed
     }
     
@@ -88,6 +92,8 @@ public class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
         gesture.delegate = self
         return gesture
     }()
+    
+    public weak var delegate         : KYDrawerControllerDelegate?
     
     public var drawerDirection      : DrawerDirection = .Left
     
@@ -281,6 +287,7 @@ public class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
                 if state == .Closed {
                     self._containerView.hidden = true
                 }
+                self.delegate?.drawerController?(self, stateChanged: state)
         }
     }
     
