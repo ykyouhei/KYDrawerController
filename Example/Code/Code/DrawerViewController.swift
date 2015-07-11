@@ -29,8 +29,7 @@ class DrawerViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         let closeButton    = UIButton()
-        let viewDictionary = ["closeButton" : closeButton]
-        closeButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        closeButton.translatesAutoresizingMaskIntoConstraints = false
         closeButton.setTitle("Close", forState: .Normal)
         closeButton.addTarget(self,
             action: "didTapCloseButton:",
