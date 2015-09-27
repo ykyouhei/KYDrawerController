@@ -24,6 +24,8 @@ import UIKit
 
 @objc public protocol KYDrawerControllerDelegate {
     optional func drawerController(drawerController: KYDrawerController, stateChanged state: KYDrawerController.DrawerState)
+    optional func drawerDestinationController(drawerController: KYDrawerController, destination:AnyObject!,sender:AnyObject?)
+
 }
 
 public class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
@@ -281,7 +283,7 @@ public class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
                         , alpha: self._kContainerViewMaxAlpha
                     )
                 }
-                self.view.layoutIfNeeded()
+                self._containerView.layoutIfNeeded()
             }) { (finished: Bool) -> Void in
                 if state == .Closed {
                     self._containerView.hidden = true
@@ -357,6 +359,13 @@ public class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
         default:
             return touch.view == gestureRecognizer.view
         }
+    }
+    public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if self.delegate != nil {
+            self.delegate?.drawerDestinationController?(self, destination: segue.destinationViewController,sender:sender)
+        }
+        
     }
 
 
