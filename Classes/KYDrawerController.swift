@@ -62,7 +62,7 @@ public class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
             target: self,
             action: "didtapContainerView:"
         )
-        view.setTranslatesAutoresizingMaskIntoConstraints(false)
+        view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = UIColor(white: 0.0, alpha: 0)
         view.addGestureRecognizer(tapGesture)
         tapGesture.delegate = self
@@ -117,14 +117,13 @@ public class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
             }
             if let mainViewController = mainViewController {
                 let viewDictionary      = ["mainView" : mainViewController.view]
-                var constraints = [AnyObject]()
-                mainViewController.view.setTranslatesAutoresizingMaskIntoConstraints(false)
+                mainViewController.view.translatesAutoresizingMaskIntoConstraints = false
                 addChildViewController(mainViewController)
                 view.insertSubview(mainViewController.view, atIndex: 0)
                 view.addConstraints(
                     NSLayoutConstraint.constraintsWithVisualFormat(
                         "V:|-0-[mainView]-0-|",
-                        options: .allZeros,
+                        options: [],
                         metrics: nil,
                         views: viewDictionary
                     )
@@ -132,7 +131,7 @@ public class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
                 view.addConstraints(
                     NSLayoutConstraint.constraintsWithVisualFormat(
                         "H:|-0-[mainView]-0-|",
-                        options: .allZeros,
+                        options: [],
                         metrics: nil,
                         views: viewDictionary
                     )
@@ -165,7 +164,7 @@ public class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
                 drawerViewController.view.layer.shadowColor   = UIColor.blackColor().CGColor
                 drawerViewController.view.layer.shadowOpacity = 0.4
                 drawerViewController.view.layer.shadowRadius  = 5.0
-                drawerViewController.view.setTranslatesAutoresizingMaskIntoConstraints(false)
+                drawerViewController.view.translatesAutoresizingMaskIntoConstraints = false
                 addChildViewController(drawerViewController)
                 _containerView.addSubview(drawerViewController.view)
                 drawerViewController.view.addConstraint(
@@ -192,7 +191,7 @@ public class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
                 _containerView.addConstraints(
                     NSLayoutConstraint.constraintsWithVisualFormat(
                         "V:|-0-[drawerView]-0-|",
-                        options: .allZeros,
+                        options: [],
                         metrics: nil,
                         views: viewDictionary
                     )
@@ -229,7 +228,7 @@ public class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
         view.addConstraints(
             NSLayoutConstraint.constraintsWithVisualFormat(
                 "H:|-0-[_containerView]-0-|",
-                options: .allZeros,
+                options: [],
                 metrics: nil,
                 views: viewDictionary
             )
@@ -237,7 +236,7 @@ public class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
         view.addConstraints(
             NSLayoutConstraint.constraintsWithVisualFormat(
                 "V:|-0-[_containerView]-0-|",
-                options: .allZeros,
+                options: [],
                 metrics: nil,
                 views: viewDictionary
             )

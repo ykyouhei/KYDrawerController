@@ -38,7 +38,7 @@ class DrawerTableViewController: UITableViewController {
             default:
                 backgroundColor = UIColor.whiteColor()
             }
-            mainNavigation.topViewController.view.backgroundColor = backgroundColor
+            mainNavigation.topViewController?.view.backgroundColor = backgroundColor
             drawerController.mainViewController = mainNavigation
             drawerController.setDrawerState(.Closed, animated: true)
         }
