@@ -281,7 +281,7 @@ public class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
                         , alpha: self._kContainerViewMaxAlpha
                     )
                 }
-                self.view.layoutIfNeeded()
+                self._containerView.layoutIfNeeded()
             }) { (finished: Bool) -> Void in
                 if state == .Closed {
                     self._containerView.hidden = true
