@@ -69,6 +69,8 @@ public class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
         return view
     }()
     
+    public var screenEdgePanGestreEnabled = false
+    
     lazy private(set) var screenEdgePanGesture: UIScreenEdgePanGestureRecognizer = {
         let gesture = UIScreenEdgePanGestureRecognizer(
             target: self,
@@ -353,7 +355,7 @@ public class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
         case panGesture:
             return drawerState == .Opened
         case screenEdgePanGesture:
-            return drawerState == .Closed
+            return screenEdgePanGestreEnabled ? drawerState == .Closed : false
         default:
             return touch.view == gestureRecognizer.view
         }
