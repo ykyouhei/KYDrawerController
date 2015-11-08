@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4115409A1BEF3D8600531D08 /* KYDrawerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411540971BEF3D8600531D08 /* KYDrawerController.swift */; };
+		4115409B1BEF3D8600531D08 /* KYEmbedDrawerControllerSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411540981BEF3D8600531D08 /* KYEmbedDrawerControllerSegue.swift */; };
+		4115409C1BEF3D8600531D08 /* KYEmbedMainControllerSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411540991BEF3D8600531D08 /* KYEmbedMainControllerSegue.swift */; };
 		41E2DAEF1B063C880023FD9E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E2DAEE1B063C880023FD9E /* AppDelegate.swift */; };
 		41E2DAF41B063C880023FD9E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41E2DAF21B063C880023FD9E /* Main.storyboard */; };
 		41E2DAF61B063C880023FD9E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41E2DAF51B063C880023FD9E /* Images.xcassets */; };
@@ -14,9 +17,6 @@
 		41E2DB051B063C880023FD9E /* StoryboardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E2DB041B063C880023FD9E /* StoryboardTests.swift */; };
 		41E2DB4F1B06BE850023FD9E /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E2DB4E1B06BE850023FD9E /* MainViewController.swift */; };
 		41E2DB531B06BEB60023FD9E /* DrawerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E2DB521B06BEB60023FD9E /* DrawerTableViewController.swift */; };
-		41E2DB5D1B06C64B0023FD9E /* KYDrawerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E2DB5A1B06C64B0023FD9E /* KYDrawerController.swift */; };
-		41E2DB5E1B06C64B0023FD9E /* KYEmbedDrawerControllerSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E2DB5B1B06C64B0023FD9E /* KYEmbedDrawerControllerSegue.swift */; };
-		41E2DB5F1B06C64B0023FD9E /* KYEmbedMainControllerSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E2DB5C1B06C64B0023FD9E /* KYEmbedMainControllerSegue.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,6 +30,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		411540971BEF3D8600531D08 /* KYDrawerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KYDrawerController.swift; path = ../../../KYDrawerController/Classes/KYDrawerController.swift; sourceTree = "<group>"; };
+		411540981BEF3D8600531D08 /* KYEmbedDrawerControllerSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KYEmbedDrawerControllerSegue.swift; path = ../../../KYDrawerController/Classes/KYEmbedDrawerControllerSegue.swift; sourceTree = "<group>"; };
+		411540991BEF3D8600531D08 /* KYEmbedMainControllerSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KYEmbedMainControllerSegue.swift; path = ../../../KYDrawerController/Classes/KYEmbedMainControllerSegue.swift; sourceTree = "<group>"; };
 		41E2DAE91B063C880023FD9E /* Storyboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Storyboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41E2DAED1B063C880023FD9E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		41E2DAEE1B063C880023FD9E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -41,9 +44,6 @@
 		41E2DB041B063C880023FD9E /* StoryboardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardTests.swift; sourceTree = "<group>"; };
 		41E2DB4E1B06BE850023FD9E /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		41E2DB521B06BEB60023FD9E /* DrawerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawerTableViewController.swift; sourceTree = "<group>"; };
-		41E2DB5A1B06C64B0023FD9E /* KYDrawerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KYDrawerController.swift; path = ../../../Classes/KYDrawerController.swift; sourceTree = "<group>"; };
-		41E2DB5B1B06C64B0023FD9E /* KYEmbedDrawerControllerSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KYEmbedDrawerControllerSegue.swift; path = ../../../Classes/KYEmbedDrawerControllerSegue.swift; sourceTree = "<group>"; };
-		41E2DB5C1B06C64B0023FD9E /* KYEmbedMainControllerSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KYEmbedMainControllerSegue.swift; path = ../../../Classes/KYEmbedMainControllerSegue.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,9 +125,9 @@
 		41E2DB4D1B06BD580023FD9E /* KYDrawerController */ = {
 			isa = PBXGroup;
 			children = (
-				41E2DB5A1B06C64B0023FD9E /* KYDrawerController.swift */,
-				41E2DB5B1B06C64B0023FD9E /* KYEmbedDrawerControllerSegue.swift */,
-				41E2DB5C1B06C64B0023FD9E /* KYEmbedMainControllerSegue.swift */,
+				411540971BEF3D8600531D08 /* KYDrawerController.swift */,
+				411540981BEF3D8600531D08 /* KYEmbedDrawerControllerSegue.swift */,
+				411540991BEF3D8600531D08 /* KYEmbedMainControllerSegue.swift */,
 			);
 			name = KYDrawerController;
 			sourceTree = "<group>";
@@ -233,9 +233,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				41E2DB5E1B06C64B0023FD9E /* KYEmbedDrawerControllerSegue.swift in Sources */,
-				41E2DB5D1B06C64B0023FD9E /* KYDrawerController.swift in Sources */,
-				41E2DB5F1B06C64B0023FD9E /* KYEmbedMainControllerSegue.swift in Sources */,
+				4115409B1BEF3D8600531D08 /* KYEmbedDrawerControllerSegue.swift in Sources */,
+				4115409A1BEF3D8600531D08 /* KYDrawerController.swift in Sources */,
+				4115409C1BEF3D8600531D08 /* KYEmbedMainControllerSegue.swift in Sources */,
 				41E2DB531B06BEB60023FD9E /* DrawerTableViewController.swift in Sources */,
 				41E2DAEF1B063C880023FD9E /* AppDelegate.swift in Sources */,
 				41E2DB4F1B06BE850023FD9E /* MainViewController.swift in Sources */,

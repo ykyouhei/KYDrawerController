@@ -41,16 +41,20 @@ public class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     private let _kContainerViewMaxAlpha  : CGFloat        = 0.2
+    
     private let _kDrawerAnimationDuration: NSTimeInterval = 0.25
     
     /**************************************************************************/
     // MARK: - Properties
     /**************************************************************************/
     
-    @IBInspectable var mainSegueIdentifier  : String?
+    @IBInspectable var mainSegueIdentifier: String?
+    
     @IBInspectable var drawerSegueIdentifier: String?
     
-    private var _drawerConstraint : NSLayoutConstraint!
+    private var _drawerConstraint: NSLayoutConstraint!
+    
+    private var _drawerWidthConstraint: NSLayoutConstraint!
     
     private var _panStartLocation = CGPointZero
     
@@ -77,10 +81,8 @@ public class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
             action: "handlePanGesture:"
         )
         switch self.drawerDirection {
-        case .Left:
-            gesture.edges = .Left
-        case .Right:
-            gesture.edges = .Right
+        case .Left:     gesture.edges = .Left
+        case .Right:    gesture.edges = .Right
         }
         gesture.delegate = self
         return gesture
@@ -95,20 +97,27 @@ public class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
         return gesture
     }()
     
-    public weak var delegate         : KYDrawerControllerDelegate?
+    public weak var delegate: KYDrawerControllerDelegate?
     
-    public var drawerDirection      : DrawerDirection = .Left
-    
-    public var drawerState          : DrawerState! {
-        get {
-            return _containerView.hidden ? .Closed : .Opened
-        }
-        set {
-            setDrawerState(drawerState, animated: false)
+    public var drawerDirection: DrawerDirection = .Left {
+        didSet {
+            switch drawerDirection {
+            case .Left:  screenEdgePanGesture.edges = .Left
+            case .Right: screenEdgePanGesture.edges = .Right
+            }
+            let tmp = drawerViewController
+            drawerViewController = tmp
         }
     }
     
-    @IBInspectable public var drawerWidth: CGFloat = 280
+    public var drawerState: DrawerState {
+        get { return _containerView.hidden ? .Closed : .Opened }
+        set { setDrawerState(drawerState, animated: false) }
+    }
+    
+    @IBInspectable public var drawerWidth: CGFloat = 280 {
+        didSet { _drawerWidthConstraint?.constant = drawerWidth }
+    }
     
     public var mainViewController: UIViewController! {
         didSet {
@@ -117,29 +126,28 @@ public class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
                 oldController.view.removeFromSuperview()
                 oldController.removeFromParentViewController()
             }
-            if let mainViewController = mainViewController {
-                let viewDictionary      = ["mainView" : mainViewController.view]
-                mainViewController.view.translatesAutoresizingMaskIntoConstraints = false
-                addChildViewController(mainViewController)
-                view.insertSubview(mainViewController.view, atIndex: 0)
-                view.addConstraints(
-                    NSLayoutConstraint.constraintsWithVisualFormat(
-                        "V:|-0-[mainView]-0-|",
-                        options: [],
-                        metrics: nil,
-                        views: viewDictionary
-                    )
+            guard let mainViewController = mainViewController else { return }
+            let viewDictionary      = ["mainView" : mainViewController.view]
+            mainViewController.view.translatesAutoresizingMaskIntoConstraints = false
+            addChildViewController(mainViewController)
+            view.insertSubview(mainViewController.view, atIndex: 0)
+            view.addConstraints(
+                NSLayoutConstraint.constraintsWithVisualFormat(
+                    "V:|-0-[mainView]-0-|",
+                    options: [],
+                    metrics: nil,
+                    views: viewDictionary
                 )
-                view.addConstraints(
-                    NSLayoutConstraint.constraintsWithVisualFormat(
-                        "H:|-0-[mainView]-0-|",
-                        options: [],
-                        metrics: nil,
-                        views: viewDictionary
-                    )
+            )
+            view.addConstraints(
+                NSLayoutConstraint.constraintsWithVisualFormat(
+                    "H:|-0-[mainView]-0-|",
+                    options: [],
+                    metrics: nil,
+                    views: viewDictionary
                 )
-                mainViewController.didMoveToParentViewController(self)
-            }
+            )
+            mainViewController.didMoveToParentViewController(self)
         }
     }
     
@@ -150,56 +158,57 @@ public class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
                 oldController.view.removeFromSuperview()
                 oldController.removeFromParentViewController()
             }
-            if let drawerViewController = drawerViewController {
-                let viewDictionary      = ["drawerView" : drawerViewController.view]
-                let itemAttribute: NSLayoutAttribute
-                let toItemAttribute: NSLayoutAttribute
-                switch drawerDirection {
-                case .Left:
-                    itemAttribute   = .Right
-                    toItemAttribute = .Left
-                case .Right:
-                    itemAttribute   = .Left
-                    toItemAttribute = .Right
-                }
-                
-                drawerViewController.view.layer.shadowColor   = UIColor.blackColor().CGColor
-                drawerViewController.view.layer.shadowOpacity = 0.4
-                drawerViewController.view.layer.shadowRadius  = 5.0
-                drawerViewController.view.translatesAutoresizingMaskIntoConstraints = false
-                addChildViewController(drawerViewController)
-                _containerView.addSubview(drawerViewController.view)
-                drawerViewController.view.addConstraint(
-                    NSLayoutConstraint(
-                        item: drawerViewController.view,
-                        attribute: NSLayoutAttribute.Width,
-                        relatedBy: NSLayoutRelation.Equal,
-                        toItem: nil,
-                        attribute: NSLayoutAttribute.Width,
-                        multiplier: 1,
-                        constant: drawerWidth
-                    )
-                )
-                _drawerConstraint = NSLayoutConstraint(
-                    item: drawerViewController.view,
-                    attribute: itemAttribute,
-                    relatedBy: NSLayoutRelation.Equal,
-                    toItem: _containerView,
-                    attribute: toItemAttribute,
-                    multiplier: 1,
-                    constant: 0
-                )
-                _containerView.addConstraint(_drawerConstraint)
-                _containerView.addConstraints(
-                    NSLayoutConstraint.constraintsWithVisualFormat(
-                        "V:|-0-[drawerView]-0-|",
-                        options: [],
-                        metrics: nil,
-                        views: viewDictionary
-                    )
-                )
-                drawerViewController.didMoveToParentViewController(self)
+            guard let drawerViewController = drawerViewController else { return }
+            let viewDictionary      = ["drawerView" : drawerViewController.view]
+            let itemAttribute: NSLayoutAttribute
+            let toItemAttribute: NSLayoutAttribute
+            switch drawerDirection {
+            case .Left:
+                itemAttribute   = .Right
+                toItemAttribute = .Left
+            case .Right:
+                itemAttribute   = .Left
+                toItemAttribute = .Right
             }
+            
+            drawerViewController.view.layer.shadowColor   = UIColor.blackColor().CGColor
+            drawerViewController.view.layer.shadowOpacity = 0.4
+            drawerViewController.view.layer.shadowRadius  = 5.0
+            drawerViewController.view.translatesAutoresizingMaskIntoConstraints = false
+            addChildViewController(drawerViewController)
+            _containerView.addSubview(drawerViewController.view)
+            _drawerWidthConstraint = NSLayoutConstraint(
+                item: drawerViewController.view,
+                attribute: NSLayoutAttribute.Width,
+                relatedBy: NSLayoutRelation.Equal,
+                toItem: nil,
+                attribute: NSLayoutAttribute.Width,
+                multiplier: 1,
+                constant: drawerWidth
+            )
+            drawerViewController.view.addConstraint(_drawerWidthConstraint)
+            
+            _drawerConstraint = NSLayoutConstraint(
+                item: drawerViewController.view,
+                attribute: itemAttribute,
+                relatedBy: NSLayoutRelation.Equal,
+                toItem: _containerView,
+                attribute: toItemAttribute,
+                multiplier: 1,
+                constant: 0
+            )
+            _containerView.addConstraint(_drawerConstraint)
+            _containerView.addConstraints(
+                NSLayoutConstraint.constraintsWithVisualFormat(
+                    "V:|-0-[drawerView]-0-|",
+                    options: [],
+                    metrics: nil,
+                    views: viewDictionary
+                )
+            )
+            _containerView.updateConstraints()
+            drawerViewController.updateViewConstraints()
+            drawerViewController.didMoveToParentViewController(self)
         }
     }
     
@@ -359,8 +368,7 @@ public class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
         default:
             return touch.view == gestureRecognizer.view
         }
-    }
-
+   }
 
 }
 
