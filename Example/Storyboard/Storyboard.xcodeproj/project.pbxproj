@@ -15,8 +15,8 @@
 		41E2DAF61B063C880023FD9E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41E2DAF51B063C880023FD9E /* Images.xcassets */; };
 		41E2DAF91B063C880023FD9E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41E2DAF71B063C880023FD9E /* LaunchScreen.xib */; };
 		41E2DB051B063C880023FD9E /* StoryboardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E2DB041B063C880023FD9E /* StoryboardTests.swift */; };
-		41E2DB4F1B06BE850023FD9E /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E2DB4E1B06BE850023FD9E /* MainViewController.swift */; };
-		41E2DB531B06BEB60023FD9E /* DrawerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E2DB521B06BEB60023FD9E /* DrawerTableViewController.swift */; };
+		FCF69FC61C526CF90068A8EE /* Menu.m in Sources */ = {isa = PBXBuildFile; fileRef = FCF69FC51C526CF90068A8EE /* Menu.m */; };
+		FCF69FC91C5270940068A8EE /* MainViewControllerObjc.m in Sources */ = {isa = PBXBuildFile; fileRef = FCF69FC81C5270940068A8EE /* MainViewControllerObjc.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,8 +42,11 @@
 		41E2DAFE1B063C880023FD9E /* StoryboardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StoryboardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		41E2DB031B063C880023FD9E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		41E2DB041B063C880023FD9E /* StoryboardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardTests.swift; sourceTree = "<group>"; };
-		41E2DB4E1B06BE850023FD9E /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		41E2DB521B06BEB60023FD9E /* DrawerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawerTableViewController.swift; sourceTree = "<group>"; };
+		FCF69FC31C526CF80068A8EE /* Storyboard-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Storyboard-Bridging-Header.h"; sourceTree = "<group>"; };
+		FCF69FC41C526CF90068A8EE /* Menu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Menu.h; sourceTree = "<group>"; };
+		FCF69FC51C526CF90068A8EE /* Menu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Menu.m; sourceTree = "<group>"; };
+		FCF69FC71C5270940068A8EE /* MainViewControllerObjc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewControllerObjc.h; sourceTree = "<group>"; };
+		FCF69FC81C5270940068A8EE /* MainViewControllerObjc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewControllerObjc.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,14 +88,17 @@
 		41E2DAEB1B063C880023FD9E /* Storyboard */ = {
 			isa = PBXGroup;
 			children = (
+				FCF69FC41C526CF90068A8EE /* Menu.h */,
+				FCF69FC51C526CF90068A8EE /* Menu.m */,
 				41E2DB4D1B06BD580023FD9E /* KYDrawerController */,
 				41E2DAEE1B063C880023FD9E /* AppDelegate.swift */,
-				41E2DB4E1B06BE850023FD9E /* MainViewController.swift */,
-				41E2DB521B06BEB60023FD9E /* DrawerTableViewController.swift */,
 				41E2DAF21B063C880023FD9E /* Main.storyboard */,
 				41E2DAF51B063C880023FD9E /* Images.xcassets */,
 				41E2DAF71B063C880023FD9E /* LaunchScreen.xib */,
 				41E2DAEC1B063C880023FD9E /* Supporting Files */,
+				FCF69FC31C526CF80068A8EE /* Storyboard-Bridging-Header.h */,
+				FCF69FC71C5270940068A8EE /* MainViewControllerObjc.h */,
+				FCF69FC81C5270940068A8EE /* MainViewControllerObjc.m */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -176,7 +182,7 @@
 		41E2DAE11B063C880023FD9E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0700;
+				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Kyohei Yamaguchi";
 				TargetAttributes = {
@@ -234,11 +240,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				4115409B1BEF3D8600531D08 /* KYEmbedDrawerControllerSegue.swift in Sources */,
+				FCF69FC61C526CF90068A8EE /* Menu.m in Sources */,
 				4115409A1BEF3D8600531D08 /* KYDrawerController.swift in Sources */,
 				4115409C1BEF3D8600531D08 /* KYEmbedMainControllerSegue.swift in Sources */,
-				41E2DB531B06BEB60023FD9E /* DrawerTableViewController.swift in Sources */,
+				FCF69FC91C5270940068A8EE /* MainViewControllerObjc.m in Sources */,
 				41E2DAEF1B063C880023FD9E /* AppDelegate.swift in Sources */,
-				41E2DB4F1B06BE850023FD9E /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -366,10 +372,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
 				INFOPLIST_FILE = Storyboard/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ykyohei.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Storyboard/Storyboard-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -377,10 +387,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
 				INFOPLIST_FILE = Storyboard/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ykyohei.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Storyboard/Storyboard-Bridging-Header.h";
 			};
 			name = Release;
 		};
