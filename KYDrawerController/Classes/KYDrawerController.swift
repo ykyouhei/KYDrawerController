@@ -72,6 +72,10 @@ public class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
         tapGesture.delegate = self
         return view
     }()
+
+    /// Returns `true` if `beginAppearanceTransition()` has been called with `true` as the first parameter, and `false`
+    /// if the first parameter is `false`. Returns `nil` if appearance transition is not in progress.
+    private var _isAppearing: Bool?
     
     public var screenEdgePanGestreEnabled = true
     
@@ -261,6 +265,31 @@ public class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
             performSegueWithIdentifier(drawerSegueID, sender: self)
         }
     }
+
+    override public func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.mainViewController?.viewWillAppear(animated)
+    }
+
+    override public func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        self.mainViewController?.viewDidAppear(animated)
+    }
+
+    override public func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.mainViewController?.viewWillDisappear(animated)
+    }
+
+    override public func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.mainViewController?.viewDidDisappear(animated)
+    }
+
+    /// We will manually call `drawerViewController`'s view appearance methods.
+    override public func shouldAutomaticallyForwardAppearanceMethods() -> Bool {
+        return false
+    }
     
     /**************************************************************************/
     // MARK: - Public Method
@@ -269,7 +298,13 @@ public class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
     public func setDrawerState(state: DrawerState, animated: Bool) {
         _containerView.hidden = false
         let duration: NSTimeInterval = animated ? _kDrawerAnimationDuration : 0
-        
+
+        let isAppearing = state == .Opened
+        if _isAppearing != isAppearing {
+            _isAppearing = isAppearing
+            drawerViewController?.beginAppearanceTransition(isAppearing, animated: animated)
+        }
+
         UIView.animateWithDuration(duration,
             delay: 0,
             options: .CurveEaseOut,
@@ -297,6 +332,8 @@ public class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
                 if state == .Closed {
                     self._containerView.hidden = true
                 }
+                self.drawerViewController?.endAppearanceTransition()
+                self._isAppearing = nil
                 self.delegate?.drawerController?(self, stateChanged: state)
         }
     }
@@ -340,6 +377,12 @@ public class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
         )
         
         switch sender.state {
+        case .Began:
+            let isAppearing = drawerState != .Opened
+            if _isAppearing != isAppearing {
+                _isAppearing = isAppearing
+                drawerViewController?.beginAppearanceTransition(isAppearing, animated: true)
+            }
         case .Changed:
             _panStartLocation = sender.locationInView(view)
             _panDelta         = delta
