@@ -48,9 +48,9 @@ public class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
     // MARK: - Properties
     /**************************************************************************/
     
-    @IBInspectable var mainSegueIdentifier: String?
+    @IBInspectable public var mainSegueIdentifier: String?
     
-    @IBInspectable var drawerSegueIdentifier: String?
+    @IBInspectable public var drawerSegueIdentifier: String?
     
     private var _drawerConstraint: NSLayoutConstraint!
     
