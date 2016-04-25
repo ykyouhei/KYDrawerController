@@ -355,14 +355,14 @@ public class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
         
         switch drawerDirection {
         case .Left:
-            drawerState     = _panDelta < 0 ? .Closed : .Opened
+            drawerState     = _panDelta <= 0 ? .Closed : .Opened
             constant        = min(_drawerConstraint.constant + delta, drawerWidth)
             backGroundAlpha = min(
                 _kContainerViewMaxAlpha,
                 _kContainerViewMaxAlpha*(abs(constant)/drawerWidth)
             )
         case .Right:
-            drawerState     = _panDelta > 0 ? .Closed : .Opened
+            drawerState     = _panDelta >= 0 ? .Closed : .Opened
             constant        = max(_drawerConstraint.constant + delta, -drawerWidth)
             backGroundAlpha = min(
                 _kContainerViewMaxAlpha,
