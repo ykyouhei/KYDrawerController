@@ -32,7 +32,7 @@ class DrawerViewController: UIViewController {
         closeButton.translatesAutoresizingMaskIntoConstraints = false
         closeButton.setTitle("Close", forState: .Normal)
         closeButton.addTarget(self,
-            action: "didTapCloseButton:",
+            action: #selector(didTapCloseButton),
             forControlEvents: .TouchUpInside
        )
         closeButton.sizeToFit()

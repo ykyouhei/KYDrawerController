@@ -34,7 +34,7 @@ class MainViewController: UIViewController {
             title: "Open",
             style: UIBarButtonItemStyle.Plain,
             target: self,
-            action: "didTapOpenButton:"
+            action: #selector(didTapOpenButton)
         )
     }
 
