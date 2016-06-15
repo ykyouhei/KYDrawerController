@@ -39,15 +39,15 @@ public class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
     @objc public enum DrawerState: Int {
         case Opened, Closed
     }
-    
-    private let _kContainerViewMaxAlpha  : CGFloat        = 0.2
-    
-    private let _kDrawerAnimationDuration: NSTimeInterval = 0.25
-    
+
     /**************************************************************************/
     // MARK: - Properties
     /**************************************************************************/
-    
+
+    @IBInspectable public var containerViewMaxAlpha: CGFloat = 0.2
+
+    @IBInspectable public var drawerAnimationDuration: NSTimeInterval = 0.25
+
     @IBInspectable public var mainSegueIdentifier: String?
     
     @IBInspectable public var drawerSegueIdentifier: String?
@@ -268,7 +268,7 @@ public class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
     
     public func setDrawerState(state: DrawerState, animated: Bool) {
         _containerView.hidden = false
-        let duration: NSTimeInterval = animated ? _kDrawerAnimationDuration : 0
+        let duration: NSTimeInterval = animated ? drawerAnimationDuration : 0
         
         UIView.animateWithDuration(duration,
             delay: 0,
@@ -289,7 +289,7 @@ public class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
                     self._drawerConstraint.constant     = constant
                     self._containerView.backgroundColor = UIColor(
                         white: 0
-                        , alpha: self._kContainerViewMaxAlpha
+                        , alpha: self.containerViewMaxAlpha
                     )
                 }
                 self._containerView.layoutIfNeeded()
@@ -321,15 +321,15 @@ public class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
             drawerState     = _panDelta < 0 ? .Closed : .Opened
             constant        = min(_drawerConstraint.constant + delta, drawerWidth)
             backGroundAlpha = min(
-                _kContainerViewMaxAlpha,
-                _kContainerViewMaxAlpha*(abs(constant)/drawerWidth)
+                containerViewMaxAlpha,
+                containerViewMaxAlpha*(abs(constant)/drawerWidth)
             )
         case .Right:
             drawerState     = _panDelta > 0 ? .Closed : .Opened
             constant        = max(_drawerConstraint.constant + delta, -drawerWidth)
             backGroundAlpha = min(
-                _kContainerViewMaxAlpha,
-                _kContainerViewMaxAlpha*(abs(constant)/drawerWidth)
+                containerViewMaxAlpha,
+                containerViewMaxAlpha*(abs(constant)/drawerWidth)
             )
         }
         
