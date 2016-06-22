@@ -62,14 +62,9 @@ public class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
     
     lazy private var _containerView: UIView = {
         let view = UIView(frame: self.view.frame)
-        let tapGesture = UITapGestureRecognizer(
-            target: self,
-            action: #selector(KYDrawerController.didtapContainerView(_:))
-        )
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = UIColor(white: 0.0, alpha: 0)
-        view.addGestureRecognizer(tapGesture)
-        tapGesture.delegate = self
+        view.addGestureRecognizer(self.containerViewTapGesture)
         return view
     }()
     
@@ -92,6 +87,15 @@ public class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
         let gesture = UIPanGestureRecognizer(
             target: self,
             action: #selector(KYDrawerController.handlePanGesture(_:))
+        )
+        gesture.delegate = self
+        return gesture
+    }()
+
+    public private(set) lazy var containerViewTapGesture: UITapGestureRecognizer = {
+        let gesture = UITapGestureRecognizer(
+            target: self,
+            action: #selector(KYDrawerController.didtapContainerView(_:))
         )
         gesture.delegate = self
         return gesture
