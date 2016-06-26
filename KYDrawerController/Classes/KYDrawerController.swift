@@ -75,7 +75,7 @@ public class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
     
     public var screenEdgePanGestureEnabled = true
     
-    lazy private(set) var screenEdgePanGesture: UIScreenEdgePanGestureRecognizer = {
+    public private(set) lazy var screenEdgePanGesture: UIScreenEdgePanGestureRecognizer = {
         let gesture = UIScreenEdgePanGestureRecognizer(
             target: self,
             action: #selector(KYDrawerController.handlePanGesture(_:))
@@ -88,7 +88,7 @@ public class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
         return gesture
     }()
     
-    lazy private(set) var panGesture: UIPanGestureRecognizer = {
+    public private(set) lazy var panGesture: UIPanGestureRecognizer = {
         let gesture = UIPanGestureRecognizer(
             target: self,
             action: #selector(KYDrawerController.handlePanGesture(_:))
