@@ -25,8 +25,8 @@ import UIKit
 public class KYEmbedDrawerControllerSegue: UIStoryboardSegue {
     
     final override public func perform() {
-        if let sourceViewController = sourceViewController as? KYDrawerController {
-            sourceViewController.drawerViewController = destinationViewController
+        if let sourceViewController = source as? KYDrawerController {
+            sourceViewController.drawerViewController = destination
         } else {
             assertionFailure("SourceViewController must be KYDrawerController!")
         }

@@ -28,19 +28,19 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        view.backgroundColor = UIColor.whiteColor()
+        view.backgroundColor = UIColor.white
         title = "MainViewController"
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             title: "Open",
-            style: UIBarButtonItemStyle.Plain,
+            style: UIBarButtonItemStyle.plain,
             target: self,
             action: #selector(didTapOpenButton)
         )
     }
 
-    func didTapOpenButton(sender: UIBarButtonItem) {
-        if let drawerController = navigationController?.parentViewController as? KYDrawerController {
-            drawerController.setDrawerState(.Opened, animated: true)
+    func didTapOpenButton(_ sender: UIBarButtonItem) {
+        if let drawerController = navigationController?.parent as? KYDrawerController {
+            drawerController.setDrawerState(.opened, animated: true)
         }
     }
     
