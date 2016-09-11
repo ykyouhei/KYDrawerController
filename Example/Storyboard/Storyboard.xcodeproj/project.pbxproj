@@ -188,9 +188,8 @@
 				TargetAttributes = {
 					41E2DAE81B063C880023FD9E = {
 						CreatedOnToolsVersion = 6.3;
-						DevelopmentTeam = G23NY7NQRD;
 						LastSwiftMigration = 0800;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 					41E2DAFD1B063C880023FD9E = {
 						CreatedOnToolsVersion = 6.3;
@@ -384,7 +383,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = G23NY7NQRD;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Storyboard/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ykyohei.$(PRODUCT_NAME:rfc1034identifier)";
@@ -402,7 +401,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = G23NY7NQRD;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Storyboard/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ykyohei.$(PRODUCT_NAME:rfc1034identifier)";

@@ -26,7 +26,7 @@ import UIKit
     @objc optional func drawerController(_ drawerController: KYDrawerController, stateChanged state: KYDrawerController.DrawerState)
 }
 
-public class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
+open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
     
     /**************************************************************************/
     // MARK: - Types
@@ -253,7 +253,7 @@ public class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
     // MARK: - Life Cycle
     /**************************************************************************/
     
-    override public func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         let viewDictionary = ["_containerView": _containerView]
@@ -287,29 +287,29 @@ public class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
 
-    override public func viewWillAppear(_ animated: Bool) {
+    override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         displayingViewController?.beginAppearanceTransition(true, animated: animated)
     }
 
-    override public func viewDidAppear(_ animated: Bool) {
+    override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         displayingViewController?.endAppearanceTransition()
     }
 
-    override public func viewWillDisappear(_ animated: Bool) {
+    override open func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         displayingViewController?.beginAppearanceTransition(false, animated: animated)
     }
 
-    override public func viewDidDisappear(_ animated: Bool) {
+    override open func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         displayingViewController?.endAppearanceTransition()
     }
 
     // We will manually call `mainViewController` or `drawerViewController`'s
     // view appearance methods.
-    override public var shouldAutomaticallyForwardAppearanceMethods: Bool {
+    override open var shouldAutomaticallyForwardAppearanceMethods: Bool {
         get {
             return false
         }
