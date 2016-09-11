@@ -149,10 +149,18 @@ public class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
 
             mainViewController.view.translatesAutoresizingMaskIntoConstraints = false
             view.insertSubview(mainViewController.view, at: 0)
-            view.leadingAnchor.constraint(equalTo: mainViewController.view.leadingAnchor).isActive = true
-            view.trailingAnchor.constraint(equalTo: mainViewController.view.trailingAnchor).isActive = true
-            view.topAnchor.constraint(equalTo: mainViewController.view.topAnchor).isActive = true
-            view.bottomAnchor.constraint(equalTo: mainViewController.view.bottomAnchor).isActive = true
+            if #available(iOS 9.0, *) {
+                view.leadingAnchor.constraint(equalTo: mainViewController.view.leadingAnchor).isActive = true
+                view.trailingAnchor.constraint(equalTo: mainViewController.view.trailingAnchor).isActive = true
+                view.topAnchor.constraint(equalTo: mainViewController.view.topAnchor).isActive = true
+                view.bottomAnchor.constraint(equalTo: mainViewController.view.bottomAnchor).isActive = true
+            } else {
+                view.addConstraint(NSLayoutConstraint(item: view, attribute: .leading, relatedBy: .equal, toItem: mainViewController.view, attribute: .leading, multiplier: 1.0, constant: 0.0))
+                view.addConstraint(NSLayoutConstraint(item: view, attribute: .trailing, relatedBy: .equal, toItem: mainViewController.view, attribute: .trailing, multiplier: 1.0, constant: 0.0))
+                view.addConstraint(NSLayoutConstraint(item: view, attribute: .top, relatedBy: .equal, toItem: mainViewController.view, attribute: .top, multiplier: 1.0, constant: 0.0))
+                view.addConstraint(NSLayoutConstraint(item: view, attribute: .bottom, relatedBy: .equal, toItem: mainViewController.view, attribute: .bottom, multiplier: 1.0, constant: 0.0))
+            }
+
 
             mainViewController.didMove(toParentViewController: self)
         }
@@ -207,8 +215,13 @@ public class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
                 constant: 0
             )
             _containerView.addConstraint(_drawerConstraint)
-            _containerView.topAnchor.constraint(equalTo: drawerViewController.view.topAnchor).isActive = true
-            _containerView.bottomAnchor.constraint(equalTo: drawerViewController.view.bottomAnchor).isActive = true
+            if #available(iOS 9.0, *) {
+                _containerView.bottomAnchor.constraint(equalTo: drawerViewController.view.bottomAnchor).isActive = true
+                _containerView.topAnchor.constraint(equalTo: drawerViewController.view.topAnchor).isActive = true
+            } else {
+                self.view.addConstraint(NSLayoutConstraint(item: _containerView, attribute: .top, relatedBy: .equal, toItem: drawerViewController.view, attribute: .top, multiplier: 1.0, constant: 0.0))
+                self.view.addConstraint(NSLayoutConstraint(item: _containerView, attribute: .bottom, relatedBy: .equal, toItem: drawerViewController.view, attribute: .bottom, multiplier: 1.0, constant: 0.0))
+            }
             _containerView.updateConstraints()
             drawerViewController.updateViewConstraints()
             drawerViewController.didMove(toParentViewController: self)
