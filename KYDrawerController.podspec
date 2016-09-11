@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "KYDrawerController"
-  s.version      = "1.1.5"
+  s.version      = "2.0.0"
   s.summary      = "KYDrawerController is a side drawer navigation container view controller."
   s.homepage     = "https://github.com/ykyouhei/KYDrawerController"
   s.license      = "MIT"
