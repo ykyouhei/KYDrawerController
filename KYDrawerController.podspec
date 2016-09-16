@@ -11,4 +11,7 @@ Pod::Spec.new do |s|
   s.source_files = "KYDrawerController/Classes/*.swift"
   s.requires_arc = true
   s.ios.deployment_target = '8.0'
+  s.xcconfig = {
+    'SWIFT_VERSION' => '3'
+  }
 end
