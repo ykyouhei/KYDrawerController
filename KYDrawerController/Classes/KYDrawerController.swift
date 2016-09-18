@@ -242,11 +242,16 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
     // MARK: - initialize
     /**************************************************************************/
     
-    public convenience init(drawerDirection: DrawerDirection, drawerWidth: CGFloat) {
-        self.init()
+    public init(drawerDirection: DrawerDirection, drawerWidth: CGFloat) {
+        super.init(nibName: nil, bundle: nil)
         self.drawerDirection = drawerDirection
         self.drawerWidth     = drawerWidth
     }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
     
     
     /**************************************************************************/

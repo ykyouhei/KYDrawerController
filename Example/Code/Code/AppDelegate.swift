@@ -26,21 +26,17 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
-    private func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         // Override point for customization after application launch.
         
         let mainViewController   = MainViewController()
         let drawerViewController = DrawerViewController()
-        let drawerController     = KYDrawerController()
+        let drawerController     = KYDrawerController(drawerDirection: .left, drawerWidth: 300)
         drawerController.mainViewController = UINavigationController(
             rootViewController: mainViewController
         )
         drawerController.drawerViewController = drawerViewController
-        
-        /* Customize */
-        drawerController.drawerDirection = .right
-        drawerController.drawerWidth     = 300
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = drawerController

@@ -180,8 +180,8 @@
 				TargetAttributes = {
 					41E2DB1C1B0641C80023FD9E = {
 						CreatedOnToolsVersion = 6.3;
-						DevelopmentTeam = G23NY7NQRD;
 						LastSwiftMigration = 0800;
+						ProvisioningStyle = Manual;
 					};
 					41E2DB311B0641C80023FD9E = {
 						CreatedOnToolsVersion = 6.3;
@@ -365,7 +365,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = G23NY7NQRD;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Code/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ykyohei.$(PRODUCT_NAME:rfc1034identifier)";
@@ -378,7 +378,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = G23NY7NQRD;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Code/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ykyohei.$(PRODUCT_NAME:rfc1034identifier)";
