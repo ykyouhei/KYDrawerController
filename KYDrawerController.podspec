@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "KYDrawerController"
-  s.version      = "2.0.0"
+  s.version      = "2.0.1"
   s.summary      = "KYDrawerController is a side drawer navigation container view controller."
   s.homepage     = "https://github.com/ykyouhei/KYDrawerController"
   s.license      = "MIT"
@@ -11,7 +11,4 @@ Pod::Spec.new do |s|
   s.source_files = "KYDrawerController/Classes/*.swift"
   s.requires_arc = true
   s.ios.deployment_target = '8.0'
-  s.xcconfig = {
-    'SWIFT_VERSION' => '3'
-  }
 end
