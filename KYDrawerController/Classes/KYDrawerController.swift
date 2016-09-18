@@ -241,13 +241,21 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
     /**************************************************************************/
     // MARK: - initialize
     /**************************************************************************/
+
+    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
     
     public convenience init(drawerDirection: DrawerDirection, drawerWidth: CGFloat) {
-        self.init()
+        self.init(nibName: nil, bundle: nil)
         self.drawerDirection = drawerDirection
         self.drawerWidth     = drawerWidth
     }
     
+    public required init?(coder decoder: NSCoder) {
+        super.init(coder: decoder)
+    }
+ 
     
     /**************************************************************************/
     // MARK: - Life Cycle
