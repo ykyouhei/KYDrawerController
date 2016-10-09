@@ -23,11 +23,11 @@ SOFTWARE.
 import UIKit
 
 @objc public protocol KYDrawerControllerDelegate {
-    @objc optional func drawerController(_ drawerController: KYDrawerController, stateChanged state: KYDrawerController.DrawerState)
+    @objc optional func drawerController(drawerController: KYDrawerController, stateChanged state: KYDrawerController.DrawerState)
 }
 
-open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
-    
+public class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
+
     /**************************************************************************/
     // MARK: - Types
     /**************************************************************************/
@@ -77,7 +77,7 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
     public private(set) lazy var screenEdgePanGesture: UIScreenEdgePanGestureRecognizer = {
         let gesture = UIScreenEdgePanGestureRecognizer(
             target: self,
-            action: #selector(KYDrawerController.handlePanGesture(_:))
+            action: #selector(KYDrawerController.handlePanGesture(sender:))
         )
         switch self.drawerDirection {
         case .left:     gesture.edges = .left
@@ -90,7 +90,7 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
     public private(set) lazy var panGesture: UIPanGestureRecognizer = {
         let gesture = UIPanGestureRecognizer(
             target: self,
-            action: #selector(KYDrawerController.handlePanGesture(_:))
+            action: #selector(KYDrawerController.handlePanGesture(sender:))
         )
         gesture.delegate = self
         return gesture
@@ -99,7 +99,7 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
     public private(set) lazy var containerViewTapGesture: UITapGestureRecognizer = {
         let gesture = UITapGestureRecognizer(
             target: self,
-            action: #selector(KYDrawerController.didtapContainerView(_:))
+            action: #selector(KYDrawerController.didtapContainerView(gesture:))
         )
         gesture.delegate = self
         return gesture
@@ -120,7 +120,7 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
     
     public var drawerState: DrawerState {
         get { return _containerView.isHidden ? .closed : .opened }
-        set { setDrawerState(drawerState, animated: false) }
+        set { setDrawerState(state: drawerState, animated: false) }
     }
     
     @IBInspectable public var drawerWidth: CGFloat = 280 {
@@ -149,24 +149,18 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
 
             mainViewController.view.translatesAutoresizingMaskIntoConstraints = false
             view.insertSubview(mainViewController.view, at: 0)
+            if #available(iOS 9.0, *) {
+                view.leadingAnchor.constraint(equalTo: mainViewController.view.leadingAnchor).isActive = true
+                view.trailingAnchor.constraint(equalTo: mainViewController.view.trailingAnchor).isActive = true
+                view.topAnchor.constraint(equalTo: mainViewController.view.topAnchor).isActive = true
+                view.bottomAnchor.constraint(equalTo: mainViewController.view.bottomAnchor).isActive = true
+            } else {
+                view.addConstraint(NSLayoutConstraint(item: view, attribute: .leading, relatedBy: .equal, toItem: mainViewController.view, attribute: .leading, multiplier: 1.0, constant: 0.0))
+                view.addConstraint(NSLayoutConstraint(item: view, attribute: .trailing, relatedBy: .equal, toItem: mainViewController.view, attribute: .trailing, multiplier: 1.0, constant: 0.0))
+                view.addConstraint(NSLayoutConstraint(item: view, attribute: .top, relatedBy: .equal, toItem: mainViewController.view, attribute: .top, multiplier: 1.0, constant: 0.0))
+                view.addConstraint(NSLayoutConstraint(item: view, attribute: .bottom, relatedBy: .equal, toItem: mainViewController.view, attribute: .bottom, multiplier: 1.0, constant: 0.0))
+            }
 
-            let viewDictionary = ["mainView" : mainViewController.view!]
-            view.addConstraints(
-                NSLayoutConstraint.constraints(
-                    withVisualFormat: "V:|-0-[mainView]-0-|",
-                    options: [],
-                    metrics: nil,
-                    views: viewDictionary
-                )
-            )
-            view.addConstraints(
-                NSLayoutConstraint.constraints(
-                    withVisualFormat: "H:|-0-[mainView]-0-|",
-                    options: [],
-                    metrics: nil,
-                    views: viewDictionary
-                )
-            )
 
             mainViewController.didMove(toParentViewController: self)
         }
@@ -221,16 +215,13 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
                 constant: 0
             )
             _containerView.addConstraint(_drawerConstraint)
-
-            let viewDictionary = ["drawerView" : drawerViewController.view!]
-            _containerView.addConstraints(
-                NSLayoutConstraint.constraints(
-                    withVisualFormat: "V:|-0-[drawerView]-0-|",
-                    options: [],
-                    metrics: nil,
-                    views: viewDictionary
-                )
-            )
+            if #available(iOS 9.0, *) {
+                _containerView.bottomAnchor.constraint(equalTo: drawerViewController.view.bottomAnchor).isActive = true
+                _containerView.topAnchor.constraint(equalTo: drawerViewController.view.topAnchor).isActive = true
+            } else {
+                self.view.addConstraint(NSLayoutConstraint(item: _containerView, attribute: .top, relatedBy: .equal, toItem: drawerViewController.view, attribute: .top, multiplier: 1.0, constant: 0.0))
+                self.view.addConstraint(NSLayoutConstraint(item: _containerView, attribute: .bottom, relatedBy: .equal, toItem: drawerViewController.view, attribute: .bottom, multiplier: 1.0, constant: 0.0))
+            }
             _containerView.updateConstraints()
             drawerViewController.updateViewConstraints()
             drawerViewController.didMove(toParentViewController: self)
@@ -258,7 +249,7 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
     // MARK: - Life Cycle
     /**************************************************************************/
     
-    override open func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         let viewDictionary = ["_containerView": _containerView]
@@ -292,39 +283,37 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
 
-    override open func viewWillAppear(_ animated: Bool) {
+    override public func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         displayingViewController?.beginAppearanceTransition(true, animated: animated)
     }
 
-    override open func viewDidAppear(_ animated: Bool) {
+    override public func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         displayingViewController?.endAppearanceTransition()
     }
 
-    override open func viewWillDisappear(_ animated: Bool) {
+    override public func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         displayingViewController?.beginAppearanceTransition(false, animated: animated)
     }
 
-    override open func viewDidDisappear(_ animated: Bool) {
+    override public func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         displayingViewController?.endAppearanceTransition()
     }
 
     // We will manually call `mainViewController` or `drawerViewController`'s
     // view appearance methods.
-    override open var shouldAutomaticallyForwardAppearanceMethods: Bool {
-        get {
-            return false
-        }
+    public override var shouldAutomaticallyForwardAppearanceMethods: Bool {
+        return false
     }
 
     /**************************************************************************/
     // MARK: - Public Method
     /**************************************************************************/
     
-    public func setDrawerState(_ state: DrawerState, animated: Bool) {
+    public func setDrawerState(state: DrawerState, animated: Bool) {
         _containerView.isHidden = false
         let duration: TimeInterval = animated ? drawerAnimationDuration : 0
 
@@ -365,7 +354,7 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
                 self.drawerViewController?.endAppearanceTransition()
                 self.mainViewController?.endAppearanceTransition()
                 self._isAppearing = nil
-                self.delegate?.drawerController?(self, stateChanged: state)
+                self.delegate?.drawerController?(drawerController: self, stateChanged: state)
         }
     }
     
@@ -373,7 +362,7 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
     // MARK: - Private Method
     /**************************************************************************/
     
-    final func handlePanGesture(_ sender: UIGestureRecognizer) {
+    final func handlePanGesture(sender: UIGestureRecognizer) {
         _containerView.isHidden = false
         if sender.state == .began {
             _panStartLocation = sender.location(in: view)
@@ -419,14 +408,14 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
             _panStartLocation = sender.location(in: view)
             _panDelta         = delta
         case .ended, .cancelled:
-            setDrawerState(drawerState, animated: true)
+            setDrawerState(state: drawerState, animated: true)
         default:
             break
         }
     }
     
-    final func didtapContainerView(_ gesture: UITapGestureRecognizer) {
-        setDrawerState(.closed, animated: true)
+    final func didtapContainerView(gesture: UITapGestureRecognizer) {
+        setDrawerState(state: .closed, animated: true)
     }
     
     
