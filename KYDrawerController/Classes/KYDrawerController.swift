@@ -27,7 +27,7 @@ import UIKit
 }
 
 public class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
-    
+
     /**************************************************************************/
     // MARK: - Types
     /**************************************************************************/
