@@ -74,7 +74,15 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
 
     public var screenEdgePanGestureEnabled = true
     
-    public var closingTapGestureEnabled = true
+    public var closingTapGestureEnabled = true{
+        didSet{
+            if closingTapGestureEnabled {
+                _containerView.addGestureRecognizer(self.containerViewTapGesture)
+            }else {
+                _containerView.removeGestureRecognizer(self.containerViewTapGesture)
+            }
+        }
+    }
     
     public private(set) lazy var screenEdgePanGesture: UIScreenEdgePanGestureRecognizer = {
         let gesture = UIScreenEdgePanGestureRecognizer(
@@ -428,9 +436,7 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     final func didtapContainerView(_ gesture: UITapGestureRecognizer) {
-        if closingTapGestureEnabled {
-            setDrawerState(.closed, animated: true)
-        }
+        setDrawerState(.closed, animated: true)
     }
     
     
