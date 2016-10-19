@@ -375,7 +375,6 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
             switch state {
             case .closed where !self.closingPanGestureEnabled:
                 self.view.addGestureRecognizer(self.panGesture)
-                break
             case .closed:
                 self._containerView.isHidden = true
                 break
