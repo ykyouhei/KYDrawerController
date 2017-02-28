@@ -74,7 +74,7 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
 
     public var screenEdgePanGestureEnabled = true
     
-    @IBInspectable public var panToCloseInsideDrawerEnabled = true
+    @IBInspectable public var panToCloseInsideDrawerEnabled: Bool = true
     
     public private(set) lazy var screenEdgePanGesture: UIScreenEdgePanGestureRecognizer = {
         let gesture = UIScreenEdgePanGestureRecognizer(
