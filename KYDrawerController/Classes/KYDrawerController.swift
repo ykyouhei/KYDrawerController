@@ -74,6 +74,8 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
 
     public var screenEdgePanGestureEnabled = true
     
+    @IBInspectable public var panToCloseInsideDrawerEnabled = true
+    
     public private(set) lazy var screenEdgePanGesture: UIScreenEdgePanGestureRecognizer = {
         let gesture = UIScreenEdgePanGestureRecognizer(
             target: self,
@@ -437,7 +439,18 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         switch gestureRecognizer {
         case panGesture:
-            return drawerState == .opened
+            if self.panToCloseInsideDrawerEnabled {
+                return drawerState == .opened
+            } else {
+                if drawerState != .opened {
+                    return false
+                }
+                guard let drawerViewController = self.drawerViewController else {
+                    return true
+                }
+                let touchLocation = touch.location(in: drawerViewController.view)
+                return !drawerViewController.view.frame.contains(touchLocation)
+            }
         case screenEdgePanGesture:
             return screenEdgePanGestureEnabled ? drawerState == .closed : false
         default:
