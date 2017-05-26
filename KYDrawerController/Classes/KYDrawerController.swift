@@ -48,7 +48,7 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
 
     @IBInspectable public var drawerAnimationDuration: TimeInterval = 0.25
     
-    @IBInspectable public var animationCurveType: String = "curveEaseOut"
+    @IBInspectable public var animationType: String = "curveEaseOut"
 
     @IBInspectable public var mainSegueIdentifier: String?
     
@@ -64,7 +64,7 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
     
     private var _curveType : UIViewAnimationOptions {
         
-        switch animationCurveType {
+        switch animationType {
         case "curveLinear":
             return .curveLinear
         case "curveEaseIn":
@@ -351,44 +351,91 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
             drawerViewController?.beginAppearanceTransition(isAppearing, animated: animated)
             mainViewController?.beginAppearanceTransition(!isAppearing, animated: animated)
         }
-
-        UIView.animate(withDuration: duration,
-            delay: 0,
-            options: _curveType,
-            animations: { () -> Void in
-                switch state {
-                case .closed:
-                    self._drawerConstraint.constant     = 0
-                    self._containerView.backgroundColor = UIColor(white: 0, alpha: 0)
-                case .opened:
-                    let constant: CGFloat
-                    switch self.drawerDirection {
-                    case .left:
-                        constant = self.drawerWidth
-                    case .right:
-                        constant = -self.drawerWidth
-                    }
-                    self._drawerConstraint.constant     = constant
-                    self._containerView.backgroundColor = UIColor(
-                        white: 0
-                        , alpha: self.containerViewMaxAlpha
-                    )
-                }
-                self._containerView.layoutIfNeeded()
-            }) { (finished: Bool) -> Void in
-                if state == .closed {
-                    self._containerView.isHidden = true
-                }
-                self.drawerViewController?.endAppearanceTransition()
-                self.mainViewController?.endAppearanceTransition()
-                self._isAppearing = nil
-                self.delegate?.drawerController?(self, stateChanged: state)
+        
+        if (animationType == "spring") {
+            animateWithSpring(state, duration: duration)
+        } else {
+            animateWithCurve(state, duration: duration)
         }
     }
     
     /**************************************************************************/
     // MARK: - Private Method
     /**************************************************************************/
+    
+    final func animateWithCurve(_ state: DrawerState, duration: TimeInterval) {
+        
+        UIView.animate(withDuration: duration,
+                       delay: 0,
+                       options: _curveType,
+                       animations: { () -> Void in
+                        switch state {
+                        case .closed:
+                            self._drawerConstraint.constant     = 0
+                            self._containerView.backgroundColor = UIColor(white: 0, alpha: 0)
+                        case .opened:
+                            let constant: CGFloat
+                            switch self.drawerDirection {
+                            case .left:
+                                constant = self.drawerWidth
+                            case .right:
+                                constant = -self.drawerWidth
+                            }
+                            self._drawerConstraint.constant     = constant
+                            self._containerView.backgroundColor = UIColor(
+                                white: 0
+                                , alpha: self.containerViewMaxAlpha
+                            )
+                        }
+                        self._containerView.layoutIfNeeded()
+        }) { (finished: Bool) -> Void in
+            if state == .closed {
+                self._containerView.isHidden = true
+            }
+            self.drawerViewController?.endAppearanceTransition()
+            self.mainViewController?.endAppearanceTransition()
+            self._isAppearing = nil
+            self.delegate?.drawerController?(self, stateChanged: state)
+        }
+    }
+    
+    final func animateWithSpring(_ state: DrawerState, duration: TimeInterval) {
+        
+        UIView.animate(withDuration : duration,
+                       delay: 0,
+                       usingSpringWithDamping: 0.7,
+                       initialSpringVelocity : 0,
+                       options: .curveEaseInOut,
+                       animations: { () -> Void in
+                        switch state {
+                        case .closed:
+                            self._drawerConstraint.constant     = 0
+                            self._containerView.backgroundColor = UIColor(white: 0, alpha: 0)
+                        case .opened:
+                            let constant: CGFloat
+                            switch self.drawerDirection {
+                            case .left:
+                                constant = self.drawerWidth - 5
+                            case .right:
+                                constant = -self.drawerWidth
+                            }
+                            self._drawerConstraint.constant     = constant
+                            self._containerView.backgroundColor = UIColor(
+                                white: 0
+                                , alpha: self.containerViewMaxAlpha
+                            )
+                        }
+                        self._containerView.layoutIfNeeded()
+        }) { (finished: Bool) -> Void in
+            if state == .closed {
+                self._containerView.isHidden = true
+            }
+            self.drawerViewController?.endAppearanceTransition()
+            self.mainViewController?.endAppearanceTransition()
+            self._isAppearing = nil
+            self.delegate?.drawerController?(self, stateChanged: state)
+        }
+    }
     
     final func handlePanGesture(_ sender: UIGestureRecognizer) {
         _containerView.isHidden = false

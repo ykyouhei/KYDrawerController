@@ -28,7 +28,7 @@
                         <userDefinedRuntimeAttribute type="number" keyPath="drawerWidth">
                             <real key="value" value="300"/>
                         </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="string" keyPath="animationCurveType" value="curveEaseInOut"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="animationType" value="spring"/>
                         <userDefinedRuntimeAttribute type="number" keyPath="containerViewMaxAlpha">
                             <real key="value" value="0.5"/>
                         </userDefinedRuntimeAttribute>
