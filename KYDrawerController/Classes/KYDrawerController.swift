@@ -47,6 +47,8 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
     @IBInspectable public var containerViewMaxAlpha: CGFloat = 0.2
 
     @IBInspectable public var drawerAnimationDuration: TimeInterval = 0.25
+    
+    @IBInspectable public var animationCurveType: String = "curveEaseOut"
 
     @IBInspectable public var mainSegueIdentifier: String?
     
@@ -59,6 +61,21 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
     private var _panStartLocation = CGPoint.zero
     
     private var _panDelta: CGFloat = 0
+    
+    private var _curveType : UIViewAnimationOptions {
+        
+        switch animationCurveType {
+        case "curveLinear":
+            return .curveLinear
+        case "curveEaseIn":
+            return .curveEaseIn
+        case "curveEaseOut":
+            return .curveEaseOut
+        default:
+            return .curveEaseInOut
+        }
+        
+    }
     
     lazy private var _containerView: UIView = {
         let view = UIView(frame: self.view.frame)
@@ -337,7 +354,7 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
 
         UIView.animate(withDuration: duration,
             delay: 0,
-            options: .curveEaseOut,
+            options: _curveType,
             animations: { () -> Void in
                 switch state {
                 case .closed:
