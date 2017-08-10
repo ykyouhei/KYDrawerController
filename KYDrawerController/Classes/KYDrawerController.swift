@@ -231,8 +231,8 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
                     views: viewDictionary
                 )
             )
-            _containerView.updateConstraints()
-            drawerViewController.updateViewConstraints()
+
+            _containerView.layoutIfNeeded()
             drawerViewController.didMove(toParentViewController: self)
         }
     }
