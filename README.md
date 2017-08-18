@@ -96,7 +96,8 @@ func setDrawerState(state: DrawerState, animated: Bool)
 
 ### Delegate
 ```Swift
-optional func drawerController(drawerController: KYDrawerController, stateChanged state: KYDrawerController.DrawerState)
+optional func drawerController(_ drawerController: KYDrawerController, willChangeState state: KYDrawerController.DrawerState)
+optional func drawerController(_ drawerController: KYDrawerController, didChangeState state: KYDrawerController.DrawerState)
 ```
 
 
