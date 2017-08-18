@@ -23,6 +23,10 @@ SOFTWARE.
 import UIKit
 
 @objc public protocol KYDrawerControllerDelegate {
+    @objc optional func drawerController(_ drawerController: KYDrawerController, willChangeState state: KYDrawerController.DrawerState)
+    @objc optional func drawerController(_ drawerController: KYDrawerController, didChangeState state: KYDrawerController.DrawerState)
+
+    @available(*, deprecated, renamed: "drawerController(_:didChangeState:)")
     @objc optional func drawerController(_ drawerController: KYDrawerController, stateChanged state: KYDrawerController.DrawerState)
 }
 
@@ -325,6 +329,8 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
     /**************************************************************************/
     
     public func setDrawerState(_ state: DrawerState, animated: Bool) {
+        delegate?.drawerController?(self, willChangeState: state)
+
         _containerView.isHidden = false
         let duration: TimeInterval = animated ? drawerAnimationDuration : 0
 
@@ -365,7 +371,12 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
                 self.drawerViewController?.endAppearanceTransition()
                 self.mainViewController?.endAppearanceTransition()
                 self._isAppearing = nil
-                self.delegate?.drawerController?(self, stateChanged: state)
+
+                if let didChangeState = self.delegate?.drawerController(_:didChangeState:) {
+                    didChangeState(self, state)
+                } else {
+                    self.delegate?.drawerController?(self, stateChanged: state)
+                }
         }
     }
     
