@@ -76,7 +76,7 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
     /// if the first parameter is `false`. Returns `nil` if appearance transition is not in progress.
     private var _isAppearing: Bool?
 
-    public var screenEdgePanGestureEnabled = true
+    @objc public var screenEdgePanGestureEnabled = true
     
     @IBInspectable public var panToCloseInsideDrawerEnabled: Bool = true
     
@@ -124,7 +124,7 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
-    public var drawerState: DrawerState {
+    @objc public var drawerState: DrawerState {
         get { return _containerView.isHidden ? .closed : .opened }
         set { setDrawerState(drawerState, animated: false) }
     }
@@ -142,7 +142,7 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
 
-    public var mainViewController: UIViewController! {
+    @objc public var mainViewController: UIViewController! {
         didSet {
             if let oldController = oldValue {
                 oldController.willMove(toParentViewController: nil)
@@ -178,7 +178,7 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
-    public var drawerViewController : UIViewController? {
+    @objc public var drawerViewController : UIViewController? {
         didSet {
             if let oldController = oldValue {
                 oldController.willMove(toParentViewController: nil)
@@ -330,7 +330,7 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
     // MARK: - Public Method
     /**************************************************************************/
     
-    public func setDrawerState(_ state: DrawerState, animated: Bool) {
+    @objc public func setDrawerState(_ state: DrawerState, animated: Bool) {
         delegate?.drawerController?(self, willChangeState: state)
 
         _containerView.isHidden = false
