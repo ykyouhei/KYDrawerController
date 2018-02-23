@@ -63,7 +63,7 @@ class DrawerViewController: UIViewController {
         view.backgroundColor = UIColor.white
     }
     
-    func didTapCloseButton(_ sender: UIButton) {
+    @objc func didTapCloseButton(_ sender: UIButton) {
         if let drawerController = parent as? KYDrawerController {
             drawerController.setDrawerState(.closed, animated: true)
         }

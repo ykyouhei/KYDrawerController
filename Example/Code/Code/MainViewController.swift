@@ -38,7 +38,7 @@ class MainViewController: UIViewController {
         )
     }
 
-    func didTapOpenButton(_ sender: UIBarButtonItem) {
+    @objc func didTapOpenButton(_ sender: UIBarButtonItem) {
         if let drawerController = navigationController?.parent as? KYDrawerController {
             drawerController.setDrawerState(.opened, animated: true)
         }

@@ -5,7 +5,7 @@
 [![Pod Platform](http://img.shields.io/cocoapods/p/KYDrawerController.svg?style=flat)](http://cocoadocs.org/docsets/KYDrawerController/)
 [![Pod License](http://img.shields.io/cocoapods/l/KYDrawerController.svg?style=flat)](https://github.com/ykyohei/KYDrawerController/blob/master/LICENSE)
 [![Language](http://img.shields.io/badge/language-swift-brightgreen.svg?style=flat)](https://developer.apple.com/swift)
-![Swift version](https://img.shields.io/badge/swift-3.0-orange.svg)
+![Swift version](https://img.shields.io/badge/swift-4.0-orange.svg)
 
 `KYDrawerController` is a side drawer navigation container view controller similar to Android.
 
@@ -96,7 +96,8 @@ func setDrawerState(state: DrawerState, animated: Bool)
 
 ### Delegate
 ```Swift
-optional func drawerController(drawerController: KYDrawerController, stateChanged state: KYDrawerController.DrawerState)
+optional func drawerController(_ drawerController: KYDrawerController, willChangeState state: KYDrawerController.DrawerState)
+optional func drawerController(_ drawerController: KYDrawerController, didChangeState state: KYDrawerController.DrawerState)
 ```
 
 
