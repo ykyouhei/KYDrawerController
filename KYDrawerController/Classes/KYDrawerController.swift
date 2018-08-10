@@ -124,7 +124,7 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
     
     public var drawerState: DrawerState {
         get { return _containerView.isHidden ? .closed : .opened }
-        set { setDrawerState(drawerState, animated: false) }
+        set { setDrawerState(newValue, animated: false) }
     }
     
     @IBInspectable public var drawerWidth: CGFloat = 280 {
