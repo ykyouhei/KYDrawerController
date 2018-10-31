@@ -32,7 +32,7 @@ class MainViewController: UIViewController {
         title = "MainViewController"
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             title: "Open",
-            style: UIBarButtonItemStyle.plain,
+            style: UIBarButtonItem.Style.plain,
             target: self,
             action: #selector(didTapOpenButton)
         )
