@@ -143,13 +143,13 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
     public var mainViewController: UIViewController! {
         didSet {
             if let oldController = oldValue {
-                oldController.willMove(toParent: nil)
+                oldController.willMove(toParentViewController: nil)
                 oldController.view.removeFromSuperview()
-                oldController.removeFromParent()
+                oldController.removeFromParentViewController()
             }
 
             guard let mainViewController = mainViewController else { return }
-            addChild(mainViewController)
+            addChildViewController(mainViewController)
 
             mainViewController.view.translatesAutoresizingMaskIntoConstraints = false
             view.insertSubview(mainViewController.view, at: 0)
@@ -172,20 +172,20 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
                 )
             )
 
-            mainViewController.didMove(toParent: self)
+            mainViewController.didMove(toParentViewController: self)
         }
     }
     
     public var drawerViewController : UIViewController? {
         didSet {
             if let oldController = oldValue {
-                oldController.willMove(toParent: nil)
+                oldController.willMove(toParentViewController: nil)
                 oldController.view.removeFromSuperview()
-                oldController.removeFromParent()
+                oldController.removeFromParentViewController()
             }
 
             guard let drawerViewController = drawerViewController else { return }
-            addChild(drawerViewController)
+            addChildViewController(drawerViewController)
 
             drawerViewController.view.layer.shadowColor   = UIColor.black.cgColor
             drawerViewController.view.layer.shadowOpacity = 0.4
@@ -237,7 +237,7 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
             )
 
             _containerView.layoutIfNeeded()
-            drawerViewController.didMove(toParent: self)
+            drawerViewController.didMove(toParentViewController: self)
         }
     }
     
