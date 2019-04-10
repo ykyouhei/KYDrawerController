@@ -142,14 +142,26 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
 
     public var mainViewController: UIViewController! {
         didSet {
+            let isVisible = (drawerState == .closed)
+            
             if let oldController = oldValue {
                 oldController.willMove(toParent: nil)
+                if isVisible {
+                    oldController.beginAppearanceTransition(false, animated: false)
+                }
                 oldController.view.removeFromSuperview()
+                if isVisible {
+                    oldController.endAppearanceTransition()
+                }
                 oldController.removeFromParent()
             }
 
             guard let mainViewController = mainViewController else { return }
             addChild(mainViewController)
+            
+            if isVisible {
+                mainViewController.beginAppearanceTransition(true, animated: false)
+            }
 
             mainViewController.view.translatesAutoresizingMaskIntoConstraints = false
             view.insertSubview(mainViewController.view, at: 0)
@@ -171,6 +183,10 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
                     views: viewDictionary
                 )
             )
+            
+            if isVisible {
+                mainViewController.endAppearanceTransition()
+            }
 
             mainViewController.didMove(toParent: self)
         }
@@ -178,14 +194,26 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
     
     public var drawerViewController : UIViewController? {
         didSet {
+            let isVisible = (drawerState == .opened)
+            
             if let oldController = oldValue {
                 oldController.willMove(toParent: nil)
+                if isVisible {
+                    oldController.beginAppearanceTransition(false, animated: false)
+                }
                 oldController.view.removeFromSuperview()
+                if isVisible {
+                    oldController.endAppearanceTransition()
+                }
                 oldController.removeFromParent()
             }
 
             guard let drawerViewController = drawerViewController else { return }
             addChild(drawerViewController)
+            
+            if isVisible {
+                drawerViewController.beginAppearanceTransition(true, animated: false)
+            }
 
             drawerViewController.view.layer.shadowColor   = UIColor.black.cgColor
             drawerViewController.view.layer.shadowOpacity = 0.4
@@ -237,6 +265,11 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
             )
 
             _containerView.layoutIfNeeded()
+            
+            if isVisible {
+                drawerViewController.endAppearanceTransition()
+            }
+            
             drawerViewController.didMove(toParent: self)
         }
     }
