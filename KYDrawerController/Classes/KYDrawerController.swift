@@ -78,6 +78,8 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
 
     public var screenEdgePanGestureEnabled = true
     
+    public var hideStatusBar: Bool = false
+    
     public private(set) lazy var screenEdgePanGesture: UIScreenEdgePanGestureRecognizer = {
         let gesture = UIScreenEdgePanGestureRecognizer(
             target: self,
@@ -279,10 +281,11 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
     // MARK: - initialize
     /**************************************************************************/
     
-    public init(drawerDirection: DrawerDirection, drawerWidth: CGFloat) {
+    public init(drawerDirection: DrawerDirection, drawerWidth: CGFloat, hideStatusBar: Bool = false) {
         super.init(nibName: nil, bundle: nil)
         self.drawerDirection = drawerDirection
         self.drawerWidth     = drawerWidth
+        self.hideStatusBar   = hideStatusBar
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -380,9 +383,23 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
             animations: { () -> Void in
                 switch state {
                 case .closed:
+                    if self.hideStatusBar {
+                        DispatchQueue.main.async(execute: {
+                            if let window = UIApplication.shared.keyWindow {
+                                window.windowLevel = UIWindowLevelNormal
+                            }
+                        })
+                    }
                     self._drawerConstraint.constant     = 0
                     self._containerView.backgroundColor = UIColor(white: 0, alpha: 0)
                 case .opened:
+                    if self.hideStatusBar {
+                        DispatchQueue.main.async(execute: {
+                            if let window = UIApplication.shared.keyWindow {
+                                window.windowLevel = UIWindowLevelStatusBar + 1
+                            }
+                        })
+                    }
                     let constant: CGFloat
                     switch self.drawerDirection {
                     case .left:

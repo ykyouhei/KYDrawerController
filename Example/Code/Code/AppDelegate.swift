@@ -32,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let mainViewController   = MainViewController()
         let drawerViewController = DrawerViewController()
-        let drawerController     = KYDrawerController(drawerDirection: .left, drawerWidth: 300)
+        let drawerController     = KYDrawerController(drawerDirection: .left, drawerWidth: 300, hideStatusBar: true)
         drawerController.mainViewController = UINavigationController(
             rootViewController: mainViewController
         )
