@@ -30,13 +30,13 @@ class DrawerViewController: UIViewController {
         // Do any additional setup after loading the view.
         let closeButton    = UIButton()
         closeButton.translatesAutoresizingMaskIntoConstraints = false
-        closeButton.setTitle("Close", for: UIControlState())
+        closeButton.setTitle("Close", for: UIControl.State())
         closeButton.addTarget(self,
             action: #selector(didTapCloseButton),
             for: .touchUpInside
        )
         closeButton.sizeToFit()
-        closeButton.setTitleColor(UIColor.blue, for: UIControlState())
+        closeButton.setTitleColor(UIColor.blue, for: UIControl.State())
         view.addSubview(closeButton)
         view.addConstraint(
             NSLayoutConstraint(
