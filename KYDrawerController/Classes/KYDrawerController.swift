@@ -76,7 +76,9 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
     /// if the first parameter is `false`. Returns `nil` if appearance transition is not in progress.
     private var _isAppearing: Bool?
 
-    public var screenEdgePanGestureEnabled = true
+    @objc public var screenEdgePanGestureEnabled = true
+    
+    @IBInspectable public var panToCloseInsideDrawerEnabled: Bool = true
     
     public private(set) lazy var screenEdgePanGesture: UIScreenEdgePanGestureRecognizer = {
         let gesture = UIScreenEdgePanGestureRecognizer(
@@ -122,7 +124,7 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
-    public var drawerState: DrawerState {
+    @objc public var drawerState: DrawerState {
         get { return _containerView.isHidden ? .closed : .opened }
         set { setDrawerState(newValue, animated: false) }
     }
@@ -140,7 +142,7 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
 
-    public var mainViewController: UIViewController! {
+    @objc public var mainViewController: UIViewController! {
         didSet {
             let isVisible = (drawerState == .closed)
             
@@ -192,7 +194,7 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
-    public var drawerViewController : UIViewController? {
+    @objc public var drawerViewController : UIViewController? {
         didSet {
             let isVisible = (drawerState == .opened)
             
@@ -361,7 +363,7 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
     // MARK: - Public Method
     /**************************************************************************/
     
-    public func setDrawerState(_ state: DrawerState, animated: Bool) {
+    @objc public func setDrawerState(_ state: DrawerState, animated: Bool) {
         delegate?.drawerController?(self, willChangeState: state)
 
         _containerView.isHidden = false
@@ -481,7 +483,18 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         switch gestureRecognizer {
         case panGesture:
-            return drawerState == .opened
+            if self.panToCloseInsideDrawerEnabled {
+                return drawerState == .opened
+            } else {
+                if drawerState != .opened {
+                    return false
+                }
+                guard let drawerViewController = self.drawerViewController else {
+                    return true
+                }
+                let touchLocation = touch.location(in: drawerViewController.view)
+                return !drawerViewController.view.frame.contains(touchLocation)
+            }
         case screenEdgePanGesture:
             return screenEdgePanGestureEnabled ? drawerState == .closed : false
         default:
