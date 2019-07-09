@@ -56,6 +56,8 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
     
     @IBInspectable public var drawerSegueIdentifier: String?
     
+    @IBInspectable public var dropShadow: Bool = true
+    
     private var _drawerConstraint: NSLayoutConstraint!
     
     private var _drawerWidthConstraint: NSLayoutConstraint!
@@ -215,9 +217,11 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
                 drawerViewController.beginAppearanceTransition(true, animated: false)
             }
 
-            drawerViewController.view.layer.shadowColor   = UIColor.black.cgColor
-            drawerViewController.view.layer.shadowOpacity = 0.4
-            drawerViewController.view.layer.shadowRadius  = 5.0
+            if dropShadow {
+                drawerViewController.view.layer.shadowColor   = UIColor.black.cgColor
+                drawerViewController.view.layer.shadowOpacity = 0.4
+                drawerViewController.view.layer.shadowRadius  = 5.0
+            }
             drawerViewController.view.translatesAutoresizingMaskIntoConstraints = false
             _containerView.addSubview(drawerViewController.view)
 
