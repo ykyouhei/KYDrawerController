@@ -25,14 +25,11 @@ import UIKit
 @objc public protocol KYDrawerControllerDelegate {
     @objc optional func drawerController(_ drawerController: KYDrawerController, willChangeState state: KYDrawerController.DrawerState)
     @objc optional func drawerController(_ drawerController: KYDrawerController, didChangeState state: KYDrawerController.DrawerState)
-
-    @available(*, deprecated, renamed: "drawerController(_:didChangeState:)")
-    @objc optional func drawerController(_ drawerController: KYDrawerController, stateChanged state: KYDrawerController.DrawerState)
 }
 
 open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
     
-    /**************************************************************************/
+    /****************************************** ********************************/
     // MARK: - Types
     /**************************************************************************/
     
@@ -355,11 +352,7 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
                 self.mainViewController?.endAppearanceTransition()
                 self._isAppearing = nil
 
-                if let didChangeState = self.delegate?.drawerController(_:didChangeState:) {
-                    didChangeState(self, state)
-                } else {
-                    self.delegate?.drawerController?(self, stateChanged: state)
-                }
+                self.delegate?.drawerController?(self, didChangeState: state)
         }
     }
     
