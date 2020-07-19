@@ -65,7 +65,7 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
     private var _panDelta: CGFloat = 0
     
     lazy private var _containerView: UIView = {
-        let view = UIView(frame: self.view.frame)
+        let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = UIColor(white: 0.0, alpha: 0)
         view.addGestureRecognizer(self.containerViewTapGesture)
