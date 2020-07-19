@@ -166,23 +166,12 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
             mainViewController.view.translatesAutoresizingMaskIntoConstraints = false
             view.insertSubview(mainViewController.view, at: 0)
 
-            let viewDictionary = ["mainView" : mainViewController.view!]
-            view.addConstraints(
-                NSLayoutConstraint.constraints(
-                    withVisualFormat: "V:|-0-[mainView]-0-|",
-                    options: [],
-                    metrics: nil,
-                    views: viewDictionary
-                )
-            )
-            view.addConstraints(
-                NSLayoutConstraint.constraints(
-                    withVisualFormat: "H:|-0-[mainView]-0-|",
-                    options: [],
-                    metrics: nil,
-                    views: viewDictionary
-                )
-            )
+            NSLayoutConstraint.activate([
+                view.topAnchor.constraint(equalTo: mainViewController.view.topAnchor),
+                view.bottomAnchor.constraint(equalTo: mainViewController.view.bottomAnchor),
+                view.leftAnchor.constraint(equalTo: mainViewController.view.leftAnchor),
+                view.rightAnchor.constraint(equalTo: mainViewController.view.rightAnchor),
+            ])
             
             if isVisible {
                 mainViewController.endAppearanceTransition()
@@ -221,48 +210,19 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
             drawerViewController.view.translatesAutoresizingMaskIntoConstraints = false
             _containerView.addSubview(drawerViewController.view)
 
-            let itemAttribute: NSLayoutConstraint.Attribute
-            let toItemAttribute: NSLayoutConstraint.Attribute
             switch drawerDirection {
             case .left:
-                itemAttribute   = .right
-                toItemAttribute = .left
+                _drawerConstraint = drawerViewController.view.rightAnchor.constraint(equalTo: _containerView.leftAnchor)
             case .right:
-                itemAttribute   = .left
-                toItemAttribute = .right
+                _drawerConstraint = drawerViewController.view.leftAnchor.constraint(equalTo: _containerView.rightAnchor)
             }
 
-            _drawerWidthConstraint = NSLayoutConstraint(
-                item: drawerViewController.view,
-                attribute: NSLayoutConstraint.Attribute.width,
-                relatedBy: NSLayoutConstraint.Relation.equal,
-                toItem: nil,
-                attribute: NSLayoutConstraint.Attribute.width,
-                multiplier: 1,
-                constant: drawerWidth
-            )
-            drawerViewController.view.addConstraint(_drawerWidthConstraint)
-            
-            _drawerConstraint = NSLayoutConstraint(
-                item: drawerViewController.view,
-                attribute: itemAttribute,
-                relatedBy: NSLayoutConstraint.Relation.equal,
-                toItem: _containerView,
-                attribute: toItemAttribute,
-                multiplier: 1,
-                constant: 0
-            )
-            _containerView.addConstraint(_drawerConstraint)
-
-            let viewDictionary = ["drawerView" : drawerViewController.view!]
-            _containerView.addConstraints(
-                NSLayoutConstraint.constraints(
-                    withVisualFormat: "V:|-0-[drawerView]-0-|",
-                    options: [],
-                    metrics: nil,
-                    views: viewDictionary
-                )
-            )
+            NSLayoutConstraint.activate([
+                _drawerConstraint,
+                drawerViewController.view.widthAnchor.constraint(equalToConstant: drawerWidth),
+                drawerViewController.view.topAnchor.constraint(equalTo: _containerView.topAnchor),
+                drawerViewController.view.bottomAnchor.constraint(equalTo: _containerView.bottomAnchor),
+            ])
 
             _containerView.layoutIfNeeded()
             
@@ -297,28 +257,18 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
     
     override open func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        let viewDictionary = ["_containerView": _containerView]
         
         view.addGestureRecognizer(screenEdgePanGesture)
         view.addGestureRecognizer(panGesture)
         view.addSubview(_containerView)
-        view.addConstraints(
-            NSLayoutConstraint.constraints(
-                withVisualFormat: "H:|-0-[_containerView]-0-|",
-                options: [],
-                metrics: nil,
-                views: viewDictionary
-            )
-        )
-        view.addConstraints(
-            NSLayoutConstraint.constraints(
-                withVisualFormat: "V:|-0-[_containerView]-0-|",
-                options: [],
-                metrics: nil,
-                views: viewDictionary
-            )
-        )
+
+        NSLayoutConstraint.activate([
+            view.topAnchor.constraint(equalTo: _containerView.topAnchor),
+            view.bottomAnchor.constraint(equalTo: _containerView.bottomAnchor),
+            view.leftAnchor.constraint(equalTo: _containerView.leftAnchor),
+            view.rightAnchor.constraint(equalTo: _containerView.rightAnchor),
+        ])
+
         _containerView.isHidden = true
         
         if let mainSegueID = mainSegueIdentifier {
